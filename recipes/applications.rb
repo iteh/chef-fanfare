@@ -63,8 +63,11 @@ Array(apps).each do |config|
   create_env_file           config, app_user
   create_database_yaml      config, app_user
   create_app_dir_symlink    config, app_user
-  create_app_vhost          config, app_user
-end
+  create_app_vhost          config, app_user 
+end  
+
+node.run_state[:fanfare_apps] = apps 
+node.run_state[:fanfare_app_users] = app_users 
 
 nginx_site "default" do
   enable  false
