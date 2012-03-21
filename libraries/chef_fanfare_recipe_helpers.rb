@@ -37,7 +37,8 @@ class Chef
           app['http']['ssl_certificate']      ||= "#{app['name']}.crt"
           app['http']['ssl_certificate_key']  ||= "#{app['name']}.key"
 
-          deploy_to = "#{node['fanfare']['root_path']}/#{app['name']}"
+          deploy_to = "#{node['fanfare']['root_path']}/#{app['name']}"   
+          app['deploy_to'] = deploy_to
           app['http']['upstream_server'] ||=
             "unix:#{deploy_to}/shared/sockets/unicorn.sock"
 
@@ -73,7 +74,6 @@ class Chef
               app['env']['PATH']
             ].join(':')
           end
-
           app['env']['PATH'] = [
             "#{node['fanfare']['root_path']}/#{app['name']}/current/bin",
             app['env']['PATH']
